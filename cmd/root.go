@@ -16,7 +16,7 @@
 package cmd
 
 import (
-
+	"fmt"
 	"github.com/spf13/cobra"
 )
 
@@ -30,8 +30,9 @@ var RootCmd = &cobra.Command{
 	Short: "Containerz suite of CLI tools",
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 	},
-	Run: func(command *cobra.Command, args []string) {
+	RunE: func(command *cobra.Command, args []string) error {
 		command.HelpFunc()(command, args)
+		return fmt.Errorf("An error occured.")
 	},
 }
 
