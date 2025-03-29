@@ -33,9 +33,11 @@ var removeCmd = &cobra.Command{
 		case nil:
 			fmt.Printf("Image %s:%s has been removed.\n", image, tag)
 		case client.ErrNotFound:
-			fmt.Printf("Image %s:%s does not exist in containerz.\n", image, tag)
+			msg := fmt.Sprintf("Image %s:%s does not exist in containerz.\n", image, tag)
+			return fmt.Errorf(msg)
 		case client.ErrRunning:
-			fmt.Printf("Image %s:%s has a container running; use force option or stop the container.\n", image, tag)
+			msg := fmt.Sprintf("Image %s:%s has a container running; use force option or stop the container.\n", image, tag)
+			return fmt.Errorf(msg)
 		default:
 			return err
 		}
